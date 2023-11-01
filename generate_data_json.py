@@ -8,13 +8,13 @@ class GenerateDataJson:
                 existing_data = json.load(file)
                 self.data = existing_data
         except FileNotFoundError:
-            self.data = []
+            self.data = {"Information": []}
 
     def add_data(self, name, prename, age, city, country):
-        if len(self.data) == 0:
+        if not self.data["Information"]:
             _id = 1
         else:
-            _id = self.data[-1]["personal_data"]["_Id"] + 1
+            _id = self.data["Information"][-1]["personal_data"]["_Id"] + 1
 
         data = {
             "personal_data": {
@@ -28,7 +28,7 @@ class GenerateDataJson:
                 "country": country
             }
         }
-        self.data.append(data)
+        self.data["Information"].append(data)
 
     def save_to_json(self):
         with open("personal.json", 'w') as file:
